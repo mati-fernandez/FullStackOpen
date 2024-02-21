@@ -5,27 +5,27 @@ const Header = (props) => {
 */
 const Header = ({ course }) => <h1>{course.name}</h1>;
 
-const Part = ({ part, exercises }) => {
+const Part = ({ part }) => {
   return (
     <p>
-      {part}&nbsp;{exercises}
+      {part.name}&nbsp;{part.exercises}
     </p>
   );
 };
 
-const Content = ({ content }) => {
-  const { part1, exercises1, part2, exercises2, part3, exercises3 } = content;
+const Content = ({ parts }) => {
   return (
     <>
-      <Part part={part1} exercises={exercises1} />
-      <Part part={part2} exercises={exercises2} />
-      <Part part={part3} exercises={exercises3} />
-    </>
+      {parts.map((part, index) => (
+        <Part key={index} part={part} />
+      ))}
+    </> //key se pasa únicamente porque React lo necesita
   );
 };
 
-const Total = ({ total }) => {
-  return <p>Number of exercises {total}</p>;
+const Total = ({ parts }) => {
+  const totalExercises = parts.reduce((acc, part) => acc + part.exercises, 0);
+  return <p>Number of exercises {totalExercises}</p>;
 };
 
 const App = () => {
@@ -50,8 +50,8 @@ const App = () => {
   return (
     <>
       <Header course={course} />
-      <Content content={course.parts} />
-      <Total total={course.parts[0].exercises} />
+      <Content parts={course.parts} />
+      <Total parts={course.parts} />
     </>
   );
 };
