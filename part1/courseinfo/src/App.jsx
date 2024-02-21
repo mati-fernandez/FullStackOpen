@@ -1,41 +1,58 @@
-import { useState } from 'react';
+/* Forma larga, antigua:
+const Header = (props) => {
+  return <h1>{props.course}</h1>
+}
+*/
+const Header = ({ course }) => <h1>{course.name}</h1>;
 
-const History = (props) => {
-  if (props.allClicks.length === 0) {
-    return <div>the app is used by pressing the buttons</div>;
-  }
-
-  return <div>button press history: {props.allClicks.join(' ')}</div>;
+const Part = ({ part, exercises }) => {
+  return (
+    <p>
+      {part}&nbsp;{exercises}
+    </p>
+  );
 };
 
-const Button = ({ handleClick, text }) => (
-  <button onClick={handleClick}>{text}</button>
-);
+const Content = ({ content }) => {
+  const { part1, exercises1, part2, exercises2, part3, exercises3 } = content;
+  return (
+    <>
+      <Part part={part1} exercises={exercises1} />
+      <Part part={part2} exercises={exercises2} />
+      <Part part={part3} exercises={exercises3} />
+    </>
+  );
+};
+
+const Total = ({ total }) => {
+  return <p>Number of exercises {total}</p>;
+};
 
 const App = () => {
-  const [left, setLeft] = useState(0);
-  const [right, setRight] = useState(0);
-  const [allClicks, setAll] = useState([]);
-
-  const handleLeftClick = () => {
-    setAll(allClicks.concat('L'));
-    setLeft(left + 1);
-  };
-
-  const handleRightClick = () => {
-    setAll(allClicks.concat('R'));
-    setRight(right + 1);
+  const course = {
+    name: 'Half Stack application development',
+    parts: [
+      {
+        name: 'Fundamentals of React',
+        exercises: 10,
+      },
+      {
+        name: 'Using props to pass data',
+        exercises: 7,
+      },
+      {
+        name: 'State of a component',
+        exercises: 14,
+      },
+    ],
   };
 
   return (
-    <div>
-      {left}
-
-      <Button handleClick={handleLeftClick} text="left" />
-      <Button handleClick={handleRightClick} text="right" />
-      {right}
-      <History allClicks={allClicks} />
-    </div>
+    <>
+      <Header course={course} />
+      <Content content={course.parts} />
+      <Total total={course.parts[0].exercises} />
+    </>
   );
 };
 
