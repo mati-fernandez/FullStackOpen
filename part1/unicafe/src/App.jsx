@@ -1,7 +1,42 @@
 import { useState } from 'react';
 
-const Button = ({ handleclick, text }) => (
-  <button onClick={handleclick}>{text}</button>
+const Statistics = ({ good, neutral, bad }) => {
+  const sum = good + neutral + bad;
+  if (sum === 0) {
+    return (
+      <div>
+        <p>No feedback given</p>
+      </div>
+    );
+  }
+  return (
+    <table>
+      <tbody>
+        <StatisticLine text="Good" value={good} />
+        <StatisticLine text="Neutral" value={neutral} />
+        <StatisticLine text="Bad" value={bad} />
+        <StatisticLine text="All" value={sum} />
+        <StatisticLine
+          text="Average"
+          value={(good * 1 + neutral * 0 + bad * -1) / sum}
+        />
+        <StatisticLine text="Positive" value={`${(good * 100) / sum} %`} />
+      </tbody>
+    </table>
+  );
+};
+
+const StatisticLine = ({ text, value }) => {
+  return (
+    <tr>
+      <td>{text}</td>
+      <td>{value}</td>
+    </tr>
+  );
+};
+
+const Button = ({ handleClick, text }) => (
+  <button onClick={handleClick}>{text}</button>
 ); //prettier hace el text wrap y por eso los paréntesis
 
 const App = () => {
@@ -25,23 +60,11 @@ const App = () => {
   return (
     <div>
       <h2>Give feedback</h2>
-      <Button handleclick={handleGood} text="Good"></Button>
-      <Button handleclick={handleNeutral} text="Neutral"></Button>
-      <Button handleclick={handleBad} text="Bad"></Button>
+      <Button handleClick={handleGood} text="Good"></Button>
+      <Button handleClick={handleNeutral} text="Neutral"></Button>
+      <Button handleClick={handleBad} text="Bad"></Button>
       <h2>Statistics</h2>
-      <p>
-        Good {good}
-        <br />
-        Neutral {neutral}
-        <br />
-        Bad {bad}
-        <br />
-        All {all}
-        <br />
-        Average {average}
-        <br />
-        Positive {positive}
-      </p>
+      <Statistics good={good} neutral={neutral} bad={bad} />
     </div>
   );
 };
