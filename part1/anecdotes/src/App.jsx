@@ -18,6 +18,7 @@ const App = () => {
 
   const [selected, setSelected] = useState(0);
   const [points, setPoints] = useState(anecdotes.map(() => 0));
+  const [winner, setWinner] = useState(0);
 
   const handleNext = () => {
     setSelected(Math.floor(Math.random() * anecdotes.length));
@@ -27,19 +28,28 @@ const App = () => {
     const newPoint = [...points];
     newPoint[selected] += 1;
     setPoints(newPoint);
-    console.log(points);
+
+    if (newPoint[selected] > points[winner]) {
+      setWinner(selected);
+    }
   };
 
   return (
     <div>
+      <h2>Anecdote of the day</h2>
       {anecdotes[selected]}
       <br />
-      <p>Tiene {points[selected]} votos</p>
+      <p>has {points[selected]} votes</p>
       <br />
       <br />
       <Button handleClick={handleVote} text={'Vote'} />
       &nbsp;
       <Button handleClick={handleNext} text="Next anecdote" />
+      <br />
+      <br />
+      <h2>Anecdote with most votes</h2>
+      {anecdotes[winner]}
+      <p>has {points[winner]} votes</p>
     </div>
   );
 };
