@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
-const Button = ({ clicked }) => (
-  <button onClick={clicked}>Next anecdote</button>
+const Button = ({ handleClick, text }) => (
+  <button onClick={handleClick}>{text}</button>
 );
 
 const App = () => {
@@ -17,17 +17,29 @@ const App = () => {
   ];
 
   const [selected, setSelected] = useState(0);
+  const [points, setPoints] = useState(anecdotes.map(() => 0));
 
-  const handleClick = () => {
+  const handleNext = () => {
     setSelected(Math.floor(Math.random() * anecdotes.length));
+  };
+
+  const handleVote = () => {
+    const newPoint = [...points];
+    newPoint[selected] += 1;
+    setPoints(newPoint);
+    console.log(points);
   };
 
   return (
     <div>
       {anecdotes[selected]}
       <br />
+      <p>Tiene {points[selected]} votos</p>
       <br />
-      <Button clicked={handleClick} />
+      <br />
+      <Button handleClick={handleVote} text={'Vote'} />
+      &nbsp;
+      <Button handleClick={handleNext} text="Next anecdote" />
     </div>
   );
 };
