@@ -1,21 +1,17 @@
 import { useState } from 'react';
 
-export const Filter = ({ persons, setPersonsToShow }) => {
+export const Filter = ({ handleFilterChange }) => {
   const [filterByName, setFilterByName] = useState('');
 
-  const handleFilterChange = (e) => {
-    setFilterByName(e.target.value.toLowerCase());
-    setPersonsToShow(
-      persons.filter((person) =>
-        person.name.toLowerCase().includes(e.target.value.toLowerCase())
-      )
-    );
+  const handleInputChange = (event) => {
+    setFilterByName(event.target.value);
+    handleFilterChange(event.target.value);
   };
 
   return (
     <div>
       filter shown with{' '}
-      <input value={filterByName} onChange={handleFilterChange} />
+      <input value={filterByName} onChange={handleInputChange} />
     </div>
   );
 };
