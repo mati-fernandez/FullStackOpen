@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import servicePerson from '../services/servicePerson';
 
-export const PersonForm = ({ personsToShow, setPersonsToShow }) => {
+export const PersonForm = ({ persons, personsToShow, setPersonsToShow }) => {
   const [newName, setNewName] = useState('');
   const [newNumber, setNewNumber] = useState('');
 
@@ -10,7 +10,6 @@ export const PersonForm = ({ personsToShow, setPersonsToShow }) => {
     const existingNames = personsToShow.map((person) => person.name);
     if (existingNames.indexOf(newName) === -1) {
       const personObject = {
-        id: personsToShow.length + 1,
         name: newName,
         number: newNumber,
       };
@@ -37,12 +36,12 @@ export const PersonForm = ({ personsToShow, setPersonsToShow }) => {
 
   return (
     <form onSubmit={addName}>
-      <div>
+      <p>
         name: <input value={newName} onChange={handleNameChange} />
-      </div>
-      <div>
+      </p>
+      <p>
         number: <input value={newNumber} onChange={handleNumberChange} />
-      </div>
+      </p>
       <div>
         <button type="submit">add</button>
       </div>

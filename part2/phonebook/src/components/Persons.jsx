@@ -1,11 +1,23 @@
-export const Persons = ({ personsToShow }) => {
-  //   console.log(personsToShow);
+import servicePerson from '../services/servicePerson';
+
+export const Persons = ({ personsToShow, setPersonsToShow }) => {
+  const handleDelete = (id, name) => {
+    if (confirm(`Delete ${name}?`)) {
+      servicePerson.remove(id).then(() => {
+        const newPersons = personsToShow.filter((person) => person.id !== id);
+        setPersonsToShow(newPersons);
+      });
+    }
+  };
   return (
     <div>
       {personsToShow.map((person) => (
-        <div key={person.id}>
-          Name {person.name} {person.number} id {person.id}
-        </div>
+        <p key={person.id}>
+          Name {person.name} {person.number}&nbsp;&nbsp;
+          <button onClick={() => handleDelete(person.id, person.name)}>
+            delete
+          </button>
+        </p>
       ))}
     </div>
   );

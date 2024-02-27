@@ -29,11 +29,15 @@ const App = () => {
       <Filter handleFilterChange={handleFilterChange} />
       <h2>add a new</h2>
       <PersonForm
+        persons={persons}
         setPersonsToShow={setPersonsToShow}
         personsToShow={personsToShow}
       />
       <h2>Numbers</h2>
-      <Persons personsToShow={personsToShow} />
+      <Persons
+        personsToShow={personsToShow}
+        setPersonsToShow={setPersonsToShow}
+      />
     </div>
   );
 };
