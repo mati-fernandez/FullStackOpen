@@ -13,6 +13,7 @@ const App = () => {
     servicePerson.getAll().then((initialPersons) => {
       setPersons(initialPersons);
       setPersonsToShow(initialPersons);
+      console.log('useEffect');
     });
   }, []);
 
@@ -30,6 +31,7 @@ const App = () => {
       <h2>add a new</h2>
       <PersonForm
         persons={persons}
+        setPersons={setPersonsToShow}
         setPersonsToShow={setPersonsToShow}
         personsToShow={personsToShow}
       />
@@ -37,6 +39,7 @@ const App = () => {
       <Persons
         personsToShow={personsToShow}
         setPersonsToShow={setPersonsToShow}
+        setPersons={setPersons}
       />
     </div>
   );

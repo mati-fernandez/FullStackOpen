@@ -1,11 +1,12 @@
 import servicePerson from '../services/servicePerson';
 
-export const Persons = ({ personsToShow, setPersonsToShow }) => {
+export const Persons = ({ personsToShow, setPersonsToShow, setPersons }) => {
   const handleDelete = (id, name) => {
     if (confirm(`Delete ${name}?`)) {
       servicePerson.remove(id).then(() => {
         const newPersons = personsToShow.filter((person) => person.id !== id);
         setPersonsToShow(newPersons);
+        setPersons(newPersons);
       });
     }
   };
