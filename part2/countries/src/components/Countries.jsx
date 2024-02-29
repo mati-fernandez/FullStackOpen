@@ -1,6 +1,6 @@
 import Country from './Country';
 
-const Countries = ({ countriesToShow }) => {
+const Countries = ({ countriesToShow, setCountriesToShow }) => {
   if (countriesToShow.length === 0) {
     return <div>Type some country name! 🙂</div>;
   } else if (countriesToShow.length > 10) {
@@ -18,8 +18,14 @@ const Countries = ({ countriesToShow }) => {
         <br />
         <ul>
           {countriesToShow.map((country) => (
-            <div key={country.name.common}>{country.name.common}</div>
-          ))}
+            <p key={country.name.common}>
+              {country.name.common}
+              {'  '}
+              <button onClick={() => setCountriesToShow([country])}>
+                Show
+              </button>
+            </p>
+          ))}{' '}
         </ul>
       </div>
     );

@@ -20,7 +20,10 @@ const App = () => {
     <div>
       <br />
       <Search countries={countries} setCountriesToShow={setCountriesToShow} />
-      <Countries countriesToShow={countriesToShow} />
+      <Countries
+        countriesToShow={countriesToShow}
+        setCountriesToShow={setCountriesToShow}
+      />
     </div>
   );
 };
