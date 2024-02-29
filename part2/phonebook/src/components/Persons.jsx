@@ -14,7 +14,7 @@ export const Persons = ({ personsToShow, setPersonsToShow, setPersons }) => {
     <div>
       {personsToShow.map((person) => (
         <p key={person.id}>
-          Name {person.name} {person.number}&nbsp;&nbsp;
+          {person.name} {person.number}&nbsp;&nbsp;
           <button onClick={() => handleDelete(person.id, person.name)}>
             delete
           </button>
