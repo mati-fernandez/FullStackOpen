@@ -9,6 +9,7 @@ const App = () => {
   const [personsToShow, setPersonsToShow] = useState([]);
   const [newName, setNewName] = useState('');
   const [newNumber, setNewNumber] = useState('');
+  const [filterByName, setFilterByName] = useState('');
 
   useEffect(() => {
     servicePerson.getAll().then((initialPersons) => {
@@ -66,9 +67,9 @@ const App = () => {
       : setNewNumber(e.target.value);
   };
 
-  const handleFilterChange = (filterValue) => {
+  const handleFilterChange = (event) => {
     const filtered = persons.filter((person) =>
-      person.name.toLowerCase().includes(filterValue.toLowerCase())
+      person.name.toLowerCase().includes(event.target.value.toLowerCase())
     );
     setPersonsToShow(filtered);
   };
