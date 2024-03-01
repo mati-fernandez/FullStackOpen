@@ -1,29 +1,39 @@
 import { useState, useEffect } from 'react';
-import countrieService from './services/countries';
-import Search from './components/Filter';
+import axios from 'axios';
 import Countries from './components/Countries';
 import './index.css';
 
 const App = () => {
   const [countries, setCountries] = useState([]);
   const [countriesToShow, setCountriesToShow] = useState([]);
-  console.log('countries', countries);
+  const [loading, setLoading] = useState(false);
+
   useEffect(() => {
-    console.log('useEffect');
-    countrieService.getAll().then((formServerCountries) => {
-      setCountries(formServerCountries);
+    setLoading(true);
+    axios.get('https://restcountries.com/v3.1/all').then((response) => {
+      setCountries(response.data);
+      setLoading(false);
     });
   }, []);
-  console.log('Countries to show', countriesToShow);
+
+  const handleChange = (e) => {
+    const filteredCountries = countries.filter((country) =>
+      country.name.common.toLowerCase().includes(e.target.value.toLowerCase())
+    );
+    setCountriesToShow(filteredCountries);
+  };
 
   return (
     <div>
       <br />
-      <Search countries={countries} setCountriesToShow={setCountriesToShow} />
+      <div>
+        Find countries: <input onChange={handleChange} />
+      </div>
       <Countries
         countriesToShow={countriesToShow}
         setCountriesToShow={setCountriesToShow}
       />
+      <p>{loading ? 'Loading...' : null}</p>
     </div>
   );
 };
